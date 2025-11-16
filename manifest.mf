@@ -1,6 +1,6 @@
 {
   "pkgName": "cdt-package-example",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "cmds": [
     {
       "name": "hello",
