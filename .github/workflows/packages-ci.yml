@@ -1,3 +1,23 @@
+# ==============================================================================
+# EXAMPLE WORKFLOW FOR PACKAGE REPOSITORIES
+# ==============================================================================
+# This is a template workflow for repositories that contain Command Launcher packages.
+# Copy this file to YOUR package repository at: .github/workflows/packages-ci.yml
+#
+# DO NOT use this in the command-launcher-package-action repository itself!
+#
+# USAGE MODES:
+# 1. Single-package repo: Root directory contains manifest.mf
+#    - Don't specify packages-directory (or set to '')
+#    - Repository structure: /manifest.mf, /README.md, /bin/, etc.
+#    - IMPORTANT: Remove the 'paths' filter below or set to your specific files
+#
+# 2. Multi-package repo: Multiple packages in subdirectories
+#    - Set packages-directory to your packages folder (e.g., 'packages')
+#    - Repository structure: /packages/package1/, /packages/package2/, etc.
+#    - IMPORTANT: Keep 'paths: packages/**' filter to trigger only on package changes
+# ==============================================================================
+
 name: Packages CI/CD Pipeline
 
 on:
@@ -93,16 +113,17 @@ jobs:
       - name: Package and publish packages
         id: package
         uses: mazurov/command-launcher-package-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           # For single-package repo: omit packages-directory
           # For multi-package repo: uncomment and set the directory
           # packages-directory: 'packages'
           package-format: 'both'  # Create .pkg archives AND push to OCI registry
-          # All parameters below have smart defaults and can be omitted:
+          # Optional overrides (smart defaults):
           # oci-registry: 'ghcr.io'
           # packages-namespace: '${{ github.repository }}'  # Defaults to owner/repo
           # oci-username: '${{ github.actor }}'
-          # oci-token: '${{ secrets.GITHUB_TOKEN }}'
           # force-release: 'true'  # Uncomment to force recreate releases (deletes existing releases/tags first)
 
       - name: Summary
