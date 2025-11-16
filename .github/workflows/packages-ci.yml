@@ -124,7 +124,7 @@ jobs:
           # oci-registry: 'ghcr.io'
           # packages-namespace: '${{ github.repository }}'  # Defaults to owner/repo
           # oci-username: '${{ github.actor }}'
-          # force-release: 'true'  # Uncomment to force recreate releases (deletes existing releases/tags first)
+          force-release: 'true'  # Uncomment to force recreate releases (deletes existing releases/tags first)
 
       - name: Summary
         run: |
