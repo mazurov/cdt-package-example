@@ -1,21 +1,3 @@
-# ==============================================================================
-# EXAMPLE WORKFLOW FOR PLUGIN REPOSITORIES
-# ==============================================================================
-# This is a template workflow for repositories that contain Command Launcher plugins.
-# Copy this file to YOUR plugin repository at: .github/workflows/plugins-ci.yml
-#
-# DO NOT use this in the cola-plugin-action repository itself!
-#
-# USAGE MODES:
-# 1. Single-package repo: Root directory contains manifest.mf
-#    - Don't specify packages-directory (or set to '')
-#    - Repository structure: /manifest.mf, /README.md, /bin/, etc.
-#
-# 2. Multi-package repo: Multiple packages in subdirectories
-#    - Set packages-directory to your packages folder (e.g., 'packages')
-#    - Repository structure: /packages/plugin1/, /packages/plugin2/, etc.
-# ==============================================================================
-
 name: Plugin CI/CD Pipeline
 
 on:
@@ -43,7 +25,7 @@ jobs:
 
       - name: Validate manifests
         id: validate
-        uses: mazurov/cola-plugin-action@main
+        uses: mazurov/command-launcher-package-action@main
         with:
           # For single-package repo: omit packages-directory or set to ''
           # For multi-package repo: set to 'packages' or your custom directory
@@ -69,7 +51,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Package plugins (.pkg)
-        uses: mazurov/cola-plugin-action@main
+        uses: mazurov/command-launcher-package-action@main
         with:
           # For single-package repo: omit packages-directory
           # For multi-package repo: uncomment and set the directory
@@ -110,7 +92,7 @@ jobs:
 
       - name: Package and publish plugins
         id: package
-        uses: mazurov/cola-plugin-action@main
+        uses: mazurov/command-launcher-package-action@main
         with:
           # For single-package repo: omit packages-directory
           # For multi-package repo: uncomment and set the directory
@@ -120,7 +102,7 @@ jobs:
           oci-username: ${{ github.actor }}
           oci-token: ${{ secrets.OCI_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}  # Creates individual releases per plugin
-          # force-release: 'true'  # Uncomment to force recreate releases (deletes existing releases/tags first)
+          force-release: 'true'  # Uncomment to force recreate releases (deletes existing releases/tags first)
 
       - name: Summary
         run: |
