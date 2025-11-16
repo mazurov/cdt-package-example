@@ -1,0 +1,31 @@
+{
+  "pkgName": "cdt-package-examlpe",
+  "version": "1.0.0",
+  "cmds": [
+    {
+      "name": "hello",
+      "type": "executable",
+      "short": "print hello world from command launcher",
+      "executable": "{{.PackageDir}}/hello.{{if eq .Os \"windows\"}}bat{{else}}sh{{end}}",
+      "args": []
+    },
+    {
+      "name": "hellome",
+      "type": "executable",
+      "short": "print hello me from command launcher",
+      "executable": "{{.PackageDir}}/hellome.{{if eq .Os \"windows\"}}bat{{else}}sh{{end}}",
+      "args": []
+    }
+  ],
+  "_metadata": {
+    "author": "Alexander Mazurov <alexander.mazurov@gmail.com>",
+    "license": "MIT",
+    "homepage": "https://github.com/mazurov/cdt-package-example",
+    "repository": "https://github.com/mazurov/cdt-package-example",
+    "tags": [
+      "test",
+      "utility",
+      "example"
+    ]
+  }
+}
